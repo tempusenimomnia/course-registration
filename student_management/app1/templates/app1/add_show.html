@@ -1,0 +1,55 @@
+{% extends 'app1/base.html' %}
+{% block content %}
+
+<h1 class="text-center alert alert-danger"> Course Registration </h1>
+
+<div class="row">
+    <div class="col-sm-4 mx-4">
+        <h4 class=" alert alert-info"> Enter the following details : </h4>
+        <form action="" method="POST" >
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <input type="submit" >
+        </form>
+    </div>
+
+    <div class="col-sm-7 mx-4">
+    <h4 class="text-center alert alert-success"> Registered Cantidates </h4>
+    <table class="table table-Secondary table-striped">
+        <tr>
+            <th> ID</th>
+            <th> First Name</th>
+            <th> Last Name</th>
+            <th> Email</th>
+            <th> Update/delete</th>
+        </tr>
+        {% for st in stud %}
+        <tr>
+           <td>{{st.id}}</td>
+           <td>{{st.first_name}}</td>
+           <td>{{st.last_name}}</td>
+           <td>{{st.email}}</td>
+           <td>
+            <a href="{% url  'update' st.id %}" class="btn btn-info"> Update</a>
+            <form action="{% url  'delete' st.id %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <input type="submit" value="delete" class="btn btn-danger">
+            </form>
+            
+           </td>
+        </tr>
+
+        {% endfor %}
+
+
+
+    </table>
+    </div>
+        
+
+
+
+</div>
+
+{% endblock content %}
